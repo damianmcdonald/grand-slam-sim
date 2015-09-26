@@ -20,12 +20,13 @@ public class WebSocketMessageDispatcher {
 		simpMessagingTemplate.convertAndSend("/topic/match.stats."+tournamentName, new MatchStats(headline, headlineType));
 	}
 	
-	public void dispatchMatchResult(final String tournamentName, final MatchUp matchUp) {
+	public void dispatchMatchResult(final String tournamentName, final MatchUp matchUp, final boolean isFinalMatch) {
 		final MatchResult result = new MatchResult(
 											matchUp.getFinalScore(), 
 											matchUp.getMatchPosition(),
 											matchUp.getRound(), 
-											matchUp.getWinner()
+											matchUp.getWinner(),
+											isFinalMatch
 											);
 		simpMessagingTemplate.convertAndSend("/topic/match.results."+tournamentName, result);
 	}
@@ -70,8 +71,9 @@ public class WebSocketMessageDispatcher {
 		private int newRound;
 		private int newPosition;
 		private boolean playerA;
+		private boolean isFinalMatch;
 		
-		public MatchResult(String score, int matchPosition, int round, Player winner) {
+		public MatchResult(String score, int matchPosition, int round, Player winner, boolean isFinalMatch) {
 			this.score = score;
 			this.matchPosition = matchPosition;
 			this.round = round;
@@ -79,6 +81,7 @@ public class WebSocketMessageDispatcher {
 			this.newRound = round+1;
 			this.newPosition = matchPosition/2;
 			this.playerA = (matchPosition%2 == 0) ? true : false;
+			this.isFinalMatch = isFinalMatch;
 		}
 
 		public String getScore() {
@@ -108,6 +111,8 @@ public class WebSocketMessageDispatcher {
 		public boolean isPlayerA() {
 			return playerA;
 		}
+
+		public boolean isFinalMatch() { return isFinalMatch; }
 
 	}
 	

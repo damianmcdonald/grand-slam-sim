@@ -67,8 +67,9 @@ public class TournamentEngine {
 		   final int roundPos = (i==0) ? 0 : i/2;
 		   matchups.add(new MatchUp(messageDispatcher, tournamentName, roundPlayers.get(i), roundPlayers.get(i+1), 5, roundName, round, roundPos));
 		}
+		final boolean isFinalMatch = roundPlayers.size()==2 ? true : false;
 		matchups.stream().forEach(m -> m.simulateMatchUp());
-		matchups.stream().forEach(m -> messageDispatcher.dispatchMatchResult(tournamentName, m));
+		matchups.stream().forEach(m -> messageDispatcher.dispatchMatchResult(tournamentName, m, isFinalMatch));
 		List<Player> roundWinners = matchups.stream()
 		        .map(p -> p.getWinner())
 		        .collect(Collectors.toList()); 

@@ -14,7 +14,7 @@ grandSlamSimApp.controller('TournamentController', ['$scope', '$modal', '$locati
 		$scope.startTournament = function() {
 			$http.post('simulator/start/'+tournamentName).
 			  then(function(response) {
-				$('#startButton').prop('disabled', true);
+				document.getElementById('startButton').disabled = true;
 			  }, function(response) {
 				alert("An error has occured with status: " + response.status + " and error message: " + response.statusText);
 			  });
@@ -25,7 +25,7 @@ grandSlamSimApp.controller('TournamentController', ['$scope', '$modal', '$locati
 			
 			tournamentSocket.connect(function(frame) {
 				tournamentSocket.subscribe("/topic/tournament.started."+tournamentName, function(message) {
-					$('#startButton').prop('disabled', true);
+					document.getElementById('startButton').disabled = true;
 				});
 				tournamentSocket.subscribe("/topic/match.stats."+tournamentName, function(message) {
 					var matchStat = JSON.parse(message.body);
@@ -58,14 +58,14 @@ grandSlamSimApp.controller('TournamentController', ['$scope', '$modal', '$locati
 		  then(function(response) {
 			$scope.tournament = response.data;
 			initTournament(response.data.rounds, response.data.maxMatches, response.data.matches);
-			$scope.max = response.data.players.length;
+			$scope.max = response.data.players.length-1;
 		  }, function(response) {
 			alert("Opps!, this tournment is either in progress or finished and can not be joined.");
 			$location.path("/select");
 		  });
 		  
 		  
-		  $scope.animationsEnabled = true;
+		  $scope.animationsEnabled = false;
 		  $scope.open = function (size) {
 			var modalInstance = $modal.open({
 			  animation: $scope.animationsEnabled,

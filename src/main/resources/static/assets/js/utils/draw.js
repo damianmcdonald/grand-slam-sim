@@ -12,8 +12,8 @@ function initTournament(rounds, maxRoundsSize, matches) {
 	
     var height = ((rounds[0]*MATCHUP_SPACING));
 	var width = ((rounds.length+1)*ROUNDS_WIDTH);
-    $("#tournament-div").css("height", height);
-	$("#tournament-div").css("width", width);
+    document.getElementById("tournament-div").style.height=height+"px";
+    document.getElementById("tournament-div").style.width=width+"px";
 
 	html+='<table id="tournament-draw-table" class="table table-striped">';
 	html+='<thead>';
@@ -43,42 +43,47 @@ function initTournament(rounds, maxRoundsSize, matches) {
 	html+='</tbody>';
 	
 	html+='</table>';
-	
-	$("#tournament-div").html(html);
+
+    document.getElementById('tournament-div').innerHTML = html;
 	
 	// position the winner round
-	console.log("finalsRoundId == " + finalsRoundId);
-    var winnerTop = $('#'+finalsRoundId).position().top+(ROUNDS_SPACE_BUFFER/2);
-	$('#round-winner').css('top', winnerTop);
+    var topValue = getPixelInteger(finalsRoundId, 'top');
+    var winnerTop = topValue+(ROUNDS_SPACE_BUFFER/2);
+    document.getElementById("round-winner").style.top = winnerTop+"px";
 	
-	$('.tournament-round').height(height);
+    var tournamentRounds = document.getElementsByClassName("tournament-round");
+    for(var i=0; i<tournamentRounds.length; i++) {
+        tournamentRounds[i].style.height = height+"px";
+    }
 	
 	fillRounds(matches, 0);
 }
 
 function fillRounds(matches, pos) {
 	for(var i=0; i<matches.length; i++) {
-		$('#round-'+pos+'-match-'+i+'-playerA-img').attr('src', 'assets/img/players/'+matches[i].playerA.image);
-		$('#round-'+pos+'-match-'+i+'-playerA-name').val(matches[i].playerA.formattedName);
-		$('#round-'+pos+'-match-'+i+'-playerB-img').attr('src', 'assets/img/players/'+matches[i].playerB.image);
-		$('#round-'+pos+'-match-'+i+'-playerB-name').val(matches[i].playerB.formattedName);
+        document.getElementById('round-'+pos+'-match-'+i+'-playerA-img').setAttribute('src', 'assets/img/players/'+matches[i].playerA.image);
+		document.getElementById('round-'+pos+'-match-'+i+'-playerA-name').value = matches[i].playerA.formattedName;
+        document.getElementById('round-'+pos+'-match-'+i+'-playerB-img').setAttribute('src', 'assets/img/players/'+matches[i].playerA.image);
+		document.getElementById('round-'+pos+'-match-'+i+'-playerB-name').value = matches[i].playerB.formattedName;
 	}
 }
 
 function fillWinner(winner) {
-	$('#round-winner-img').attr('src', 'assets/img/players/'+winner.winner.image);
-	$('#round-winner-name').val(winner.winner.formattedName);
+    document.getElementById('round-winner-img').setAttribute('src', 'assets/img/players/'+winner.winner.image);
+    document.getElementById('round-winner-name').value = winner.winner.formattedName;
 }
 
 function fillSingleRound(matchResult) {
-	$('#round-'+matchResult.round+'-match-'+matchResult.matchPosition+'-score').html(matchResult.score);
-	if(matchResult.playerA == true) {
-		$('#round-'+matchResult.newRound+'-match-'+matchResult.newPosition+'-playerA-img').attr('src', 'assets/img/players/'+matchResult.winner.image);
-		$('#round-'+matchResult.newRound+'-match-'+matchResult.newPosition+'-playerA-name').val(matchResult.winner.formattedName);
-	} else {
-		$('#round-'+matchResult.newRound+'-match-'+matchResult.newPosition+'-playerB-img').attr('src', 'assets/img/players/'+matchResult.winner.image);
-		$('#round-'+matchResult.newRound+'-match-'+matchResult.newPosition+'-playerB-name').val(matchResult.winner.formattedName);
-	}
+	document.getElementById('round-'+matchResult.round+'-match-'+matchResult.matchPosition+'-score').innerHTML = matchResult.score;
+    if(!matchResult.finalMatch) {
+        if (matchResult.playerA == true) {
+            document.getElementById('round-' + matchResult.newRound + '-match-' + matchResult.newPosition + '-playerA-img').setAttribute('src', 'assets/img/players/' + matchResult.winner.image);
+            document.getElementById('round-' + matchResult.newRound + '-match-' + matchResult.newPosition + '-playerA-name').value = matchResult.winner.formattedName;
+        } else {
+            document.getElementById('round-' + matchResult.newRound + '-match-' + matchResult.newPosition + '-playerB-img').setAttribute('src', 'assets/img/players/' + matchResult.winner.image);
+            document.getElementById('round-' + matchResult.newRound + '-match-' + matchResult.newPosition + '-playerB-name').value = matchResult.winner.formattedName;
+        }
+    }
 }
 
 function drawWinner(max){
@@ -117,9 +122,9 @@ function drawRounds(numMatches, pos, max) {
 		isFinalRound = true;
     } 
 	
-	topOffset = ((($("#tournament-div").height()+TOPOFFSET_BASE) / (numMatches*2)))+TOPOFFSET_BASE;
+    topOffset = (((getPixelInteger('tournament-div', 'height')+TOPOFFSET_BASE) / (numMatches*2)))+TOPOFFSET_BASE;
 	// find the relative distance for which to position nested matchups
-	currTopOffsetInc = $("#tournament-div").height()/numMatches;
+	currTopOffsetInc = getPixelInteger('tournament-div', 'height')/numMatches;
 	
     // set the intial top offset for the first matchup, this will subsequently be incremented in the loop
     currTopOffset = topOffset;
@@ -176,5 +181,13 @@ function getRoundName(position) {
         return "Finals";        
     default:
         return "Round "+position;
-    } 
+    }
 }
+
+ function getPixelInteger(elemId, style) {
+    var pixels = window
+        .getComputedStyle(document.getElementById(elemId),null)
+        .getPropertyValue(style)
+        .match(/\d+/);
+    return parseInt(pixels[0]);
+ }

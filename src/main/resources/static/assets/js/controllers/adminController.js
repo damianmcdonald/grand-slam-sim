@@ -128,8 +128,8 @@ grandSlamSimApp.controller('AdminController', ['$scope', '$modal', '$location', 
 			$scope.showStep2 = false;
 			$scope.showAddButton = false;
 			$scope.showMoveItems = false;
-			$('#add-tournament-name-div').removeClass('has-error');
-			$('#add-tournament-name-div').removeClass('has-success');
+			document.getElementById('add-tournament-name-div').classList.remove('has-error');
+			document.getElementById('add-tournament-name-div').classList.remove('has-success');
 		  };
 		  
 		  var resetStep2 = function() {
@@ -137,15 +137,15 @@ grandSlamSimApp.controller('AdminController', ['$scope', '$modal', '$location', 
 		  };
 		  
 		  var validationPassed = function() {
-			$('#add-tournament-name-div').addClass('has-success');
-			$('#add-tournament-name-div').removeClass('has-error');
-			$('#add-tournament-name-error').addClass('hide');
+			document.getElementById('add-tournament-name-div').classList.add('has-success');
+			document.getElementById('add-tournament-name-error').classList.add('hide');
+			document.getElementById('add-tournament-name-div').classList.remove('has-error');
 		  };
 		  
 		  var validationFailed = function() {
-			$('#add-tournament-name-div').addClass('has-error');
-			$('#add-tournament-name-div').removeClass('has-success');
-			$('#add-tournament-name-error').removeClass('hide');
+			document.getElementById('add-tournament-name-div').classList.add('has-error');
+			document.getElementById('add-tournament-name-div').classList.remove('has-success');
+			document.getElementById('add-tournament-name-error').classList.remove('hide');
 		  };
 		  
 		  $http.get('admin/checkAdmin').
