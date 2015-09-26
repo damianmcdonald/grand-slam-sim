@@ -1,0 +1,25 @@
+<section>
+
+<div ng-cloak class="container-fluid">
+
+<div ng-if="!hasTournaments">
+	<img ng-src="assets/img/trophy-black.png" class="img-thumbnail" />
+	<h2>Oh dear ... <small> there are no tournaments for you to join.</small></h2>
+	<p>As an <strong>Admin</strong> user you can <a ng-href="index.html#/admin">Create a Tournament</a>.</p>
+</div>
+
+<div ng-if="hasTournaments">
+<h4>Available Tournaments <small>select a tournament to join</h4>
+<div class="tournaments-list-div">
+	<div ng-repeat="tournament in tournaments" style="float: left; padding: 5px 10px 5px 10px; text-align: center;">
+		<a ng-href="index.html#/draw/{{tournament.name}}"><img ng-src="assets/img/trophy.png" class="img-thumbnail" /></a>
+		<div class="caption">
+			<a ng-href="index.html#/draw/{{tournament.name}}">{{tournament.name}}</a>
+		</div>
+	</div>
+</div>
+</div>
+
+</div>
+
+</section>
