@@ -3,7 +3,7 @@
 
 image::src/main/resources/static/assets/img/readme/logo.png[grand-slam-sim]
 
-`grand-slam-sim` is a demo application that was put together to demonstrate the use of websockets, database access and method level security in http://projects.spring.io/spring-boot/[Spring Boot]. The intention was to add and utlize these functionlities by writing a minimal amount of code, deferring all the heavy lifting to `Spring Boot`.
+`grand-slam-sim` is a demo application that was put together to demonstrate the use of websockets, database access and method level security in http://projects.spring.io/spring-boot/[Spring Boot]. The intention was to add and utilize these functionlities by writing a minimal amount of code, deferring all the heavy lifting to `Spring Boot`.
 
 To make the demo application a bit more functional, a front end has been added using AngularJS and the concept of a tennis tournament simulator has been introduced to give the demo app a theme.
 
