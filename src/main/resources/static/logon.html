@@ -11,11 +11,11 @@
 	<!-- Latest compiled and minified CSS -->
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
 	<link rel="stylesheet" href="assets/js/lib/flat-ui/css/flat-ui.min.css">
+    <link rel="icon" href="assets/img/favicon.ico" type="image/x-icon" />
 
 	<style>
-	.container {
-	  width: 970px !important;
-	}
+	   body { padding-top: 30px; }
+	   .container { width: 970px !important; }
 	</style>
 	
     <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
@@ -30,28 +30,27 @@
 	        <div class="login">
 		        <div class="login-screen">
 		          <div class="login-icon">
-		            <h4>Welcome to <small>Grand Slam Sim</small></h4>
-		          </div>
+		            <h4>Welcome to <small>GrandSlamSim</small></h4>
+					<p><u>Credentials</u></p>
+					<p>admin/admin</p>
+					<p>user/user</p>
+		          </div> <!-- /.login-icon -->
 		
 		          <div class="login-form">
 		          	<form method="post">
 			            <div class="form-group">
 			              <input type="text" class="form-control login-field" placeholder="Enter your name" name="username" />
 			              <label class="login-field-icon fui-user" for="login-name"> Username</label>
-			            </div>
-			
+			            </div>			
 			            <div class="form-group">
 			              <input type="password" class="form-control login-field" name="password" />
 			              <label class="login-field-icon fui-lock" for="login-pass"> Password </label>
 			            </div>
-			
 						<input class="btn btn-primary btn-lg btn-block"  type="submit" value="Log In"/>
 		            </form>
-		          </div>
-		        </div>
-		      </div>
-	    </div>
-	    <!-- /.container -->
-
+		          </div> <!-- /.login-form -->
+		        </div> <!-- /.login-screen -->
+		      </div> <!-- /.login -->
+	    </div> <!-- /.container -->
   </body>
 </html>

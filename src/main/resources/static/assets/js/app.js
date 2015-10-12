@@ -1,7 +1,5 @@
 'use strict';
 
-/* App Module */
-
 var grandSlamSimApp = angular.module('grandSlamSimApp', [
 														'ngRoute',
 														'ui.bootstrap',
@@ -11,8 +9,8 @@ var grandSlamSimApp = angular.module('grandSlamSimApp', [
 													 
 grandSlamSimApp.config(['$routeProvider', function($routeProvider) {
   $routeProvider.
-  when('/draw/:tournamentName', {
-    templateUrl: 'assets/partials/draw.html',
+  when('/tournament/:tournamentName', {
+    templateUrl: 'assets/partials/tournament.html',
     controller: 'TournamentController'
   }).
   when('/admin', {
@@ -26,4 +24,5 @@ grandSlamSimApp.config(['$routeProvider', function($routeProvider) {
   otherwise({
     redirectTo: '/select'
   });
+  
 }]);

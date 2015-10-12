@@ -1,137 +1,134 @@
 <section>
 
-<div ng-cloak class="container-fluid">
+  <div ng-cloak class="container-fluid">
 
-<div ng-if="!validUser">
-	<img ng-src="assets/img/unauthorized.png" />
-	<h2>Naughty, naughty ... <small>you know you shouldn't be here.</small></h2>
-	<p>This page is reserved for <strong>Admin</strong> users only.</p>
-</div>
+    <div ng-if="!validUser">
+     <img ng-src="assets/img/unauthorized.png" />
+     <h2>Naughty, naughty ... <small>you know you shouldn't be here.</small></h2>
+     <p>This page is reserved for <strong>Admin</strong> users only.</p>
+   </div>
 
-<div ng-if="validUser">
+   <div ng-if="validUser">
 
-<div class="tournament-accordion">
-  <script type="text/ng-template" id="group-template.html">
-    <div class="panel {{panelClass || 'panel-default'}}">
-      <div class="panel-heading">
-        <h4 class="panel-title" style="color:#fa39c3">
-          <a href tabindex="0" class="accordion-toggle" ng-click="toggleOpen()" accordion-transclude="heading"><span
-            ng-class="{'text-muted': isDisabled}">{{heading}}</span></a>
-        </h4>
-      </div>
-      <div class="panel-collapse collapse" collapse="!isOpen">
-        <div class="panel-body" style="text-align: right" ng-transclude></div>
-      </div>
-    </div>
-  </script>
-  
-  <div class="container-fluid">
-  <h4>Available Tournaments</h4>
-  <accordion close-others="true">
-    <accordion-group heading="{{tournament.name}}" ng-repeat="tournament in tournaments track by $index">
-		<div>
-		<p>Tournament: ({{tournament.name}})</p>
-		<p>Players ({{tournament.players.length}})</p>
-			<div ng-repeat="player in tournament.players" style="float: left; padding: 5px 10px 5px 10px; text-align: center;">
-				<img ng-src="assets/img/players/{{player.image}}" class="img-thumbnail" />
-				<div class="caption">
-				<p>{{player.formattedName}} ({{player.seed}})</p>
-			  </div>
-			</div>
-			<hr />
-		 <div style="clear: both;">
-			<a ng-href="index.html#/draw/{{tournament.name}}" type="button" class="btn btn-info btn-sm">Join Tournament</a>
-			<a id="removeButton" type="button" class="btn btn-danger btn-sm" ng-click="removeTournament(tournament.name)">Remove Tournament</a>
-		</div>
-		</div>
-    </accordion-group>
-  </accordion>
-  </div>
-  </div>
-  
-  <div class="container-fluid">
-  
-  <div class="row">
-		
-		<div class="col-md-6">
-		
-  <h4>Add Tournament</h4>
-  
-	  <form>
-	  <div id="add-tournament-name-div" class="form-group">
-		<span>Step 1: Add a Tournament Name (then press Enter)</span>
-		<input type="tournamentName" ng-model="newTournament.name" ng-enter="verifyUniqueName(newTournament.name)" ng-blur="verifyUniqueName(newTournament.name)" class="form-control" id="tournamentNameInput" placeholder="Tournament Name">
-		<span id="add-tournament-name-error" style="color: #e74c3c;" class="has-error hide">* This tournament name is already in use. Please enter a unique name.</span>
-	  </div>
-	  
-	  </div>
-	  </div>
-	   
-	   <div ng-if="showStep2">
-	   
-		<span>Step 2: Load players from database or Excel file</span>
-          <div class="row">
-		  <div class="col-md-2">
-			  <div id="load-players-div" class="form-group">
-				<a id="loadPlayersButton" type="button" class="btn btn-primary btn" ng-click="loadPlayers()">Load Players (DB)</a>
-			  </div>
-			</div>
-			<div class="col-md-1">
-				<p>or</p>
-			</div>
-            <div class="col-md-6">
-                <div>
-                    <div>
-                        <span class="btn btn-default btn-sm"><input type="file" name="file" id="upload-file"/>
-						</span>
-						<span><button class="btn btn-primary btn" ng-click="uploadFile()">Upload Players (Excel)</button></span>
-                    </div>
-                </div>
+    <div class="tournament-accordion">
+      <script type="text/ng-template" id="group-template.html">
+        <div class="panel {{panelClass || 'panel-default'}}">
+          <div class="panel-heading">
+            <h4 class="panel-title" style="color:#fa39c3">
+              <a href tabindex="0" class="accordion-toggle" ng-click="toggleOpen()" accordion-transclude="heading"><span
+                ng-class="{'text-muted': isDisabled}">{{heading}}</span></a>
+              </h4>
             </div>
-	  
-	  </div>
-	  
-	  
-	  <div id="display-players-div">
-		
-		<ul dnd-list="players" class="list-unstyled">
-	  
-			<li ng-repeat="player in players"
-				dnd-draggable="player"
-				dnd-moved="players.splice($index, 1)"
-				dnd-effect-allowed="move"
-				dnd-selected="models.selected = player"
-				ng-class="{'selected': models.selected === player}"
-				>
-				<img ng-src="assets/img/players/{{player.image}}" class="img-thumbnail" /> <span>{{player.formattedName}} ({{$index+1}})</span>
-			</li>
-	  			
-		</ul>	
-			
-		</div>
-		
-	  </div>
-	  
-	  <div ng-if="showAddButton">
+            <div class="panel-collapse collapse" collapse="!isOpen">
+              <div class="panel-body" style="text-align: right" ng-transclude></div>
+            </div>
+          </div>
+        </script>
 
-	  <p><strong>Note:</strong> Players can be moved up and down to adjust the seedings.</p>
-	  
-	  <a id="addButton" type="button" class="btn btn-primary btn-sm" ng-click="addTournament(newTournament.name)">Add Tournament</a>
-	  
-	  <br/>
-	  <br/>
-	  </div>
-	  
-	</form>
-  
-  	  </div>
-	  
+        <div class="container-fluid">
+          <h4>Available Tournaments</h4>
+          <accordion close-others="true">
+            <accordion-group heading="{{tournament.name}}" ng-repeat="tournament in tournaments track by $index">
+            <div>
+              <p>Tournament: ({{tournament.name}})</p>
+              <p>Players ({{tournament.players.length}})</p>
+              <div ng-repeat="player in tournament.players" style="float: left; padding: 5px 10px 5px 10px; text-align: center;">
+                <img ng-src="assets/img/players/{{player.image}}" class="img-thumbnail players-photo" />
+                <div class="caption">
+                  <p>{{player.formattedName}} ({{player.seed}})</p>
+                </div>
+              </div>
+              <hr />
+              <div style="clear: both;">
+               <a ng-href="index.html#/tournament/{{tournament.name}}" type="button" class="btn btn-info btn-sm">Join Tournament</a>
+               <a id="removeButton" type="button" class="btn btn-danger btn-sm" ng-click="removeTournament(tournament.name)">Remove Tournament</a>
+             </div>
+           </div>
+         </accordion-group>
+       </accordion>
+     </div> <!-- /.container-fluid -->
+   </div> <!-- /.tournament-accordion -->
+
+   <div class="container-fluid">
+
+    <div class="row">
+
+      <div class="col-md-6">
+
+        <h4>Add Tournament</h4>
+
+        <form>
+         <div id="add-tournament-name-div" class="form-group">
+          <span>Step 1: Add a Tournament Name (then press Enter)</span>
+          <input type="tournamentName" ng-model="newTournament.name" ng-enter="verifyUniqueName(newTournament.name)" ng-blur="verifyUniqueName(newTournament.name)" class="form-control" id="tournamentNameInput" placeholder="Tournament Name">
+          <span id="add-tournament-name-error" style="color: #e74c3c;" class="has-error hide">* This tournament name is already in use. Please enter a unique name.</span>
+        </div>
+
+      </div> <!-- /.col-md-6 -->
+    </div> <!-- /.row -->
+
+    <div ng-if="showStep2">
+
+      <span>Step 2: Load players from database or Excel file</span>
+      <div class="row">
+        <div class="col-md-2">
+         <div id="load-players-div" class="form-group">
+          <a id="loadPlayersButton" type="button" class="btn btn-primary btn" ng-click="loadPlayers()">Load Players (DB)</a>
+        </div>
+      </div>
+      <div class="col-md-1">
+        <p>or</p>
+      </div>
+      <div class="col-md-6">
+        <div>
+          <div>
+            <span class="btn btn-default btn-sm"><input type="file" name="file" id="upload-file"/>
+            </span>
+            <span><button class="btn btn-primary btn" ng-click="uploadFile()">Upload Players (Excel)</button></span>
+          </div>
+        </div>
+      </div>
+
+    </div> <!-- /.row -->
+
+
+    <div id="display-players-div">
+
+      <ul dnd-list="players" class="list-unstyled">
+
+       <li ng-repeat="player in players"
+       dnd-draggable="player"
+       dnd-moved="players.splice($index, 1)"
+       dnd-effect-allowed="move"
+       dnd-selected="models.selected = player"
+       ng-class="{'selected': models.selected === player}"
+       >
+       <img ng-src="assets/img/players/{{player.image}}" class="img-thumbnail" /> <span>{{player.formattedName}} ({{$index+1}})</span>
+     </li>
+
+   </ul>	
+
+ </div> <!-- /#display-players-div -->
+
+</div> <!-- /ng-if="showStep2" -->
+
+    <div ng-if="showAddButton">
+     <p><strong>Note:</strong> Players can be moved up and down to adjust the seedings.</p>
+     <a id="addButton" type="button" class="btn btn-primary btn-sm" ng-click="addTournament(newTournament.name)">Add Tournament</a>
+     <br/>
+     <br/>
+    </div>
+
+  </form>
+
   </div>
- 
- </div>
- 
- </div>
-  
-</div>
+
+  </div> <!-- /.row -->
+
+  </div> <!-- /.container-fluid -->
+
+  </div> <!-- /ng-if="validUser" -->
+
+</div> <!-- /.container-fluid -->
 
 </section>

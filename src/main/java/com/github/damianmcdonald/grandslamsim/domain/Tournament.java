@@ -38,30 +38,20 @@ public class Tournament {
 		return roundCnt.toArray(new Integer[roundCnt.size()]);
 	}
 	
-	public String getName() {
-		return name;
-	}
+	public String getName() { return name; }
 
-	public List<Match> getMatches() {
-		return matches;
-	}
+	public List<Match> getMatches() { return matches; }
+	
+	public List<Player> getPlayers() { return players; }
+
+	public Integer[] getRounds() { return rounds; }
+
+	public int getMaxMatches() { return maxMatches;	}
 	
 	public void setMatches(List<Match> matches) {
 		this.matches = matches;
 		this.maxMatches = matches.size();
 		this.rounds= getRounds(matches.size());
-	}
-
-	public List<Player> getPlayers() {
-		return players;
-	}
-
-	public Integer[] getRounds() {
-		return rounds;
-	}
-
-	public int getMaxMatches() {
-		return maxMatches;
 	}
 	
 	@Override

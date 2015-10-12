@@ -31,8 +31,8 @@ public class MatchUp {
 	public final static String[] PLAYERB_SET_SCORES = new String[]{"0-6", "1-6", "2-6", "3-6", "4-6", "5-7", "6-7"};
 	private final long id = new Random().nextLong();
 	
-	public MatchUp(WebSocketMessageDispatcher messageDispatcher, String tournamentName, Player playerA, Player playerB, 
-					int totalSets, String roundName, int round, int matchPosition) {
+	public MatchUp(final WebSocketMessageDispatcher messageDispatcher, final String tournamentName, final Player playerA, 
+					final Player playerB, final int totalSets, final String roundName, final int round, final int matchPosition) {
 		this.messageDispatcher = messageDispatcher;
 		this.tournamentName = tournamentName;
 		this.playerA = playerA;
@@ -58,11 +58,11 @@ public class MatchUp {
 	}
 	
 	private void simulateSets() {
-		int luckFactorA = rand(1,10);
-		int luckFactorB = rand(1,10);
+		final int luckFactorA = rand(1,10);
+		final int luckFactorB = rand(1,10);
 		for(int i=0; i<totalSets; i++) {
-			int playerAWeight = ((playerA.getSeed()+rand(1,5))*luckFactorA);
-			int playerBWeight = ((playerB.getSeed()+rand(1,5))*luckFactorB);
+			final int playerAWeight = ((playerA.getSeed()+rand(1,5))*luckFactorA);
+			final int playerBWeight = ((playerB.getSeed()+rand(1,5))*luckFactorB);
 			if(playerAWeight <= playerBWeight) { // player A is the set winner
 				playerASets++;
 				final String score = PLAYERA_SET_SCORES[rand(1, 6)];
@@ -117,37 +117,21 @@ public class MatchUp {
 			    .toString();
 	}
 	
-	public String getTournamentName() {
-		return tournamentName;
-	}
+	public String getTournamentName() { return tournamentName; }
 
-	public Player getPlayerA() {
-		return playerA;
-	}
+	public Player getPlayerA() { return playerA; }
 
-	public Player getPlayerB() {
-		return playerB;
-	}
+	public Player getPlayerB() { return playerB; }
 
-	public int getTotalSets() {
-		return totalSets;
-	}
+	public int getTotalSets() { return totalSets; }
 
-	public List<String> getSetScore() {
-		return setScore;
-	}
+	public List<String> getSetScore() { return setScore; }
 
-	public Player getWinner() {
-		return winner;
-	}
+	public Player getWinner() { return winner; }
 
-	public int getRound() {
-		return round;
-	}
+	public int getRound() { return round; }
 
-	public int getMatchPosition() {
-		return matchPosition;
-	}
+	public int getMatchPosition() { return matchPosition; }
 	
 	@Override
 	public int hashCode(){

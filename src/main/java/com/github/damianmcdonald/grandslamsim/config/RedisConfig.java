@@ -36,7 +36,6 @@ public class RedisConfig {
 
 		@Override
 		public void afterPropertiesSet() throws Exception {
-
 			redisServer = new RedisServer(Protocol.DEFAULT_PORT);
 			redisServer.start();
 		}
@@ -49,12 +48,13 @@ public class RedisConfig {
 		}
 
 		@Override
-		public void postProcessBeanDefinitionRegistry(BeanDefinitionRegistry registry) throws BeansException {
+		public void postProcessBeanDefinitionRegistry(final BeanDefinitionRegistry registry) throws BeansException {
 		}
 
 		@Override
-		public void postProcessBeanFactory(ConfigurableListableBeanFactory beanFactory) throws BeansException {
+		public void postProcessBeanFactory(final ConfigurableListableBeanFactory beanFactory) throws BeansException {
 		}
 
 	}
+	
 }

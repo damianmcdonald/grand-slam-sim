@@ -21,21 +21,13 @@ public class Match {
 		this.matchPosition = matchPosition;
 	}
 
-	public Player getPlayerA() {
-		return playerA;
-	}
+	public Player getPlayerA() { return playerA; }
 
-	public Player getPlayerB() {
-		return playerB;
-	}
+	public Player getPlayerB() { return playerB; }
 
-	public int getRound() {
-		return round;
-	}
+	public int getRound() {	return round; }
 
-	public int getMatchPosition() {
-		return matchPosition;
-	}
+	public int getMatchPosition() {	return matchPosition; }
 	
 	@Override
 	public int hashCode(){

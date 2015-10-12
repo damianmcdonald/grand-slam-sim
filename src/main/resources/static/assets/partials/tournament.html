@@ -1,0 +1,87 @@
+<section>
+
+	<div class="container-fluid">
+
+		<div class="container-fluid">
+			<div class="row tournament-controls">
+				<div class="col-md-2">
+					<br/>
+					<button id="startButton" type="button" class="btn btn-primary" ng-click="startTournament()">Start Tournament</button>
+				</div>
+				<div class="col-md-4">
+					<br/>
+					<div class="progress">
+						<progressbar max="max" value="dynamic"><span style="color:white; white-space:nowrap;">{{dynamic}} / {{max}}</span></progressbar>
+					</div>
+				</div>
+				<div class="col-md-4">
+					<h3 ng-cloak>{{tournament.name}}</h3>
+				</div>
+				<div class="col-md-2">
+					<span ng-if="completed">
+						<img id="tournament-completed" ng-src="assets/img/completed.png" />
+					</span>
+				</div>
+			</div>
+		</div> <!-- /.container-fluid -->
+
+		
+		<div class="container-fluid">
+			<div id="tournament-div">
+			</div>
+		</div>
+
+		<div class="container-fluid">
+			<div class="headlines">
+				<h3>Headlines</h3>
+				<li ng-cloak ng-repeat="matchStat in matchStats track by $index">
+					{{matchStat}}
+				</li>
+			</div>
+		</div>
+
+		<script type="text/ng-template" id="winnerModalContent.html">
+			<div class="modal-header">
+				<h5 class="modal-title">{{tournamentResult.winner.firstName}} {{tournamentResult.winner.surname}}, {{tournamentResult.tournamentName}} winner</h5>
+			</div>
+			<div class="modal-body">
+				<div class="container-fluid">
+					<div>
+						<h4>Congratulations to {{tournamentResult.winner.firstName}} {{tournamentResult.winner.surname}}</h4>
+						<h5>The {{tournamentResult.tournamentName}} winner</h5>
+					</div>
+					<div style="text-align: center;">
+						<img ng-src="assets/img/players/original/{{tournamentResult.winner.image}}" class="img-thumbnail" />
+					</div>
+				</div>
+			</div>
+			<div class="modal-footer">
+				<button class="btn btn-primary" type="button" ng-click="ok()">OK</button>
+				<button class="btn btn-warning" type="button" ng-click="cancel()">Cancel</button>
+			</div>
+		</script>
+
+		<script type="text/ng-template" id="invalidTournamentModalContent.html">
+			<div class="modal-header">
+				<h5 class="modal-title">You cannot be serious!!!</h5>
+			</div>
+			<div class="modal-body">
+				<div class="container-fluid">
+					<div>
+						<p>Sorry, but the {{invalidTournamentName.tournamentName}} tournament can not be joined as it is in progress or has already ended.</p>
+					</div>
+					<div style="text-align: center;">
+						<img ng-src="assets/img/invalid-tournament.jpg" class="img-thumbnail" />
+					</div>
+				</div>
+			</div>
+			<div class="modal-footer">
+				<button class="btn btn-primary" type="button" ng-click="ok()">OK</button>
+				<button class="btn btn-warning" type="button" ng-click="cancel()">Cancel</button>
+			</div>
+		</script>
+
+	</div>
+
+
+</section>

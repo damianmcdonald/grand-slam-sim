@@ -1,6 +1,5 @@
 'use strict';
 
-/* Services */
 grandSlamSimApp.factory('TournamentSocket', ['$rootScope', function($rootScope) {
 	var stompClient;
 

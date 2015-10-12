@@ -76,7 +76,8 @@ public class TournamentService {
 	}
 		
 	public List<Player> loadPlayers() {
-		final List<Player> players = StreamSupport.stream(playerRepository.findAll().spliterator(), false).collect (Collectors.toList());
+		final List<Player> players = StreamSupport.stream(playerRepository.findAll().spliterator(), false)
+									 .collect (Collectors.toList());
 		players.sort((p1, p2) -> (int) p1.getSeed() - p2.getSeed());
 		return players;
 	}

@@ -59,23 +59,15 @@ public class Player implements Serializable {
 
 	public String getRepresents() { return represents; }
 
-	public int getSeed() {
-		return seed;
-	}
+	public int getSeed() { return seed;	}
 	
-	public void setSeed(int seed) {
-		this.seed = seed;
-	}
+	public void setSeed(int seed) {	this.seed = seed; }
 
-	public int getDrawPosition() {
-		return drawPosition;
-	}
+	public int getDrawPosition() { return drawPosition;	}
 	
 	public void setDrawPosition(int drawPosition) { this.drawPosition = drawPosition; }
 
-	public String getImage() {
-		return image;
-	}
+	public String getImage() { return image; }
 
 	public String getFormattedName() {
 		this.formattedName =  getFirstName().charAt(0)+". "+getSurname();

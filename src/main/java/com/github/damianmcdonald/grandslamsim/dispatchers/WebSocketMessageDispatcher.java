@@ -52,13 +52,9 @@ public class WebSocketMessageDispatcher {
 			this.headlineType = headlineType;
 		}
 
-		public String getHeadline() {
-			return headline;
-		}
+		public String getHeadline() { return headline; }
 
-		public int getHeadlineType() {
-			return headlineType;
-		}
+		public int getHeadlineType() { return headlineType;	}
 
 	}
 	
@@ -73,7 +69,8 @@ public class WebSocketMessageDispatcher {
 		private boolean playerA;
 		private boolean isFinalMatch;
 		
-		public MatchResult(String score, int matchPosition, int round, Player winner, boolean isFinalMatch) {
+		public MatchResult(final String score, final int matchPosition, final int round, 
+								final Player winner, final boolean isFinalMatch) {
 			this.score = score;
 			this.matchPosition = matchPosition;
 			this.round = round;
@@ -84,33 +81,19 @@ public class WebSocketMessageDispatcher {
 			this.isFinalMatch = isFinalMatch;
 		}
 
-		public String getScore() {
-			return score;
-		}
+		public String getScore() { return score; }
 
-		public int getMatchPosition() {
-			return matchPosition;
-		}
+		public int getMatchPosition() {	return matchPosition; }
 
-		public int getRound() {
-			return round;
-		}
+		public int getRound() {	return round; }
 
-		public Player getWinner() {
-			return winner;
-		}
+		public Player getWinner() { return winner; }
 
-		public int getNewRound() {
-			return newRound;
-		}
+		public int getNewRound() { return newRound; }
 
-		public int getNewPosition() {
-			return newPosition;
-		}
+		public int getNewPosition() { return newPosition; }
 
-		public boolean isPlayerA() {
-			return playerA;
-		}
+		public boolean isPlayerA() { return playerA; }
 
 		public boolean isFinalMatch() { return isFinalMatch; }
 
@@ -128,17 +111,11 @@ public class WebSocketMessageDispatcher {
 			this.winner = winner;
 		}
 
-		public String getScore() {
-			return score;
-		}
+		public String getScore() { return score; }
 
-		public int getRound() {
-			return round;
-		}
+		public int getRound() { return round; }
 
-		public Player getWinner() {
-			return winner;
-		}
+		public Player getWinner() { return winner; }
 	}
 
 }

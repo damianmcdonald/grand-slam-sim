@@ -3,6 +3,7 @@ package com.github.damianmcdonald.grandslamsim.controllers;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -19,6 +20,7 @@ public class TournamentController {
 	@Autowired private WebSocketMessageDispatcher messageDispatcher;
 	@Autowired private TournamentService tournamentService;
 
+	@PreAuthorize("isAuthenticated()") 
 	@RequestMapping(value = "/details/{tournamentName}", method = RequestMethod.GET)
 	public ResponseEntity<Tournament> getTournamentDetails(@PathVariable final String tournamentName) {
 		final Tournament tournament = tournamentService.getTournament(tournamentName);
@@ -28,6 +30,7 @@ public class TournamentController {
 		return new ResponseEntity<Tournament>(tournament, HttpStatus.OK);
 	}
 	
+	@PreAuthorize("isAuthenticated()") 
 	@RequestMapping(value = "/start/{tournamentName}", method = RequestMethod.POST)
 	public void startTournment(@PathVariable final String tournamentName) {
 		messageDispatcher.dispatchTournamentStarted(tournamentName);

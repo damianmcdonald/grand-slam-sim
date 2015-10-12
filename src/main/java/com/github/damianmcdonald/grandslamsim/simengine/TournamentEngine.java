@@ -1,8 +1,8 @@
 package com.github.damianmcdonald.grandslamsim.simengine;
 
-import java.util.Random;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 import java.util.stream.Collectors;
 
 import org.apache.commons.lang3.builder.EqualsBuilder;
@@ -18,13 +18,14 @@ import com.github.damianmcdonald.grandslamsim.domain.Tournament;
 public class TournamentEngine {
 	
 	private WebSocketMessageDispatcher messageDispatcher;
-	private final static List<MatchUp> matchups = new ArrayList<MatchUp>();
 	private String tournamentName;
 	private Tournament tournament;
 	private boolean isStarted = false;
+	private final static List<MatchUp> matchups = new ArrayList<MatchUp>();
 	private final long id = new Random().nextLong();
+	private final static long ROUND_SIMULATION_DELAY = 2000L; 
 	
-	public TournamentEngine(final String tournamentName, WebSocketMessageDispatcher messageDispatcher) {
+	public TournamentEngine(final String tournamentName, final WebSocketMessageDispatcher messageDispatcher) {
 		this.tournamentName = tournamentName;
 		this.messageDispatcher = messageDispatcher;
 	}
@@ -40,7 +41,7 @@ public class TournamentEngine {
 		return this.tournament;
 	}
 	
-	private List<MatchUp> getInitialMatchUps(List<Player> roundPlayers) {
+	private List<MatchUp> getInitialMatchUps(final List<Player> roundPlayers) {
 		final List<MatchUp> initialMatchups = new ArrayList<MatchUp>();
 		for (int i=0; i<roundPlayers.size(); i+=2) {
 			final int roundPos = (i==0) ? 0 : i/2;
@@ -49,7 +50,7 @@ public class TournamentEngine {
 		return initialMatchups;
 	}
 	
-	public void simulateRounds(List<Player> roundPlayers, int round){
+	public void simulateRounds(final List<Player> roundPlayers, final int round){
 		this.isStarted = true;
 		if(roundPlayers.size() == 1) {
 			final String message = String.format("Tournament winner is: %s", roundPlayers.get(0).getFormattedName());
@@ -58,35 +59,25 @@ public class TournamentEngine {
 			return;
 		}
 		matchups.clear();
-
 		for (int i=0; i<roundPlayers.size(); i+=2) {
 		   final String roundName = getRoundName(roundPlayers.size());
 		   final String message = String.format("%s match up: %s vs %s", getRoundName(roundPlayers.size()), roundPlayers.get(i).getFormattedName(), roundPlayers.get(i+1).getFormattedName());
-		   messageDispatcher.dispatchMatchStats(tournamentName, message, HEADLINE_TYPE.MATCHUP.ordinal());
-		   
 		   final int roundPos = (i==0) ? 0 : i/2;
+		   messageDispatcher.dispatchMatchStats(tournamentName, message, HEADLINE_TYPE.MATCHUP.ordinal());
 		   matchups.add(new MatchUp(messageDispatcher, tournamentName, roundPlayers.get(i), roundPlayers.get(i+1), 5, roundName, round, roundPos));
 		}
 		final boolean isFinalMatch = roundPlayers.size()==2 ? true : false;
 		matchups.stream().forEach(m -> m.simulateMatchUp());
 		matchups.stream().forEach(m -> messageDispatcher.dispatchMatchResult(tournamentName, m, isFinalMatch));
-		List<Player> roundWinners = matchups.stream()
+		final List<Player> roundWinners = matchups.stream()
 		        .map(p -> p.getWinner())
 		        .collect(Collectors.toList()); 
-		
-		/*
-		roundWinners.stream().forEach(w -> {
-			   final String message = String.format("Winner %s", w.getFormattedName());
-			   messageDispatcher.dispatchMatchStats(message, HEADLINE_TYPE.MATCH_WINNER.ordinal());
-		});
-		*/
-
+		// Delay the simulation of rounds so that websocket responses are easily visible in the UI
 		try {
-			Thread.sleep(2000L);
+			Thread.sleep(ROUND_SIMULATION_DELAY);
 		} catch (InterruptedException e) {
 			e.printStackTrace();
 		}
-
 		simulateRounds(roundWinners, round + 1);
 	}
 	
@@ -113,17 +104,11 @@ public class TournamentEngine {
 		}
 	}
 
-	public String getTournamentName() {
-		return tournamentName;
-	}
+	public String getTournamentName() { return tournamentName; }
 	
-	public Tournament getTournament() {
-		return tournament;
-	}
+	public Tournament getTournament() { return tournament; }
 	
-	public boolean isStarted() {
-		return isStarted;
-	}
+	public boolean isStarted() { return isStarted; }
 	
 	@Override
 	public int hashCode(){

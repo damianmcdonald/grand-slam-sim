@@ -80,12 +80,11 @@ public class AdminController {
 	
 	@PreAuthorize("hasRole('ROLE_ADMIN')")
 	@RequestMapping(value = "/uploadPlayers", method = RequestMethod.POST)
-	  public List<Player> handleFileUpload(
-	      @RequestParam("filename") String fileName,
-	      @RequestParam("file") MultipartFile file, 
-	      HttpServletRequest request) throws IOException, InvalidFormatException {
-	
-	    if (!file.isEmpty()) {
+	public List<Player> handleFileUpload(
+	    @RequestParam("filename") final String fileName,
+	    @RequestParam("file") final MultipartFile file, 
+	    HttpServletRequest request) throws IOException, InvalidFormatException {
+	    if(!file.isEmpty()) {
 	        final byte[] bytes = file.getBytes();
 	        final BufferedOutputStream stream =
 	            new BufferedOutputStream(new FileOutputStream(new File(uploadDir + File.separator + fileName)));
@@ -95,6 +94,6 @@ public class AdminController {
 	    } else {
 	      throw new IllegalArgumentException("File can not be empty");
 	    }
-	  }
+	}
 
 }
