@@ -9,6 +9,8 @@ To make the demo application a bit more functional, a front end has been added u
 
 The application supports uploading of an Excel file containing players data in order to allow users to create their own tennis tournaments.
 
+A running instance of the code is available over at http://grand-slam-sim.herokuapp.com[Heroku].
+
 == Getting started
 
 The library was built using the following toolchain:
