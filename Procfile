@@ -1,1 +1,1 @@
-web: target/grandslamsim.war
+web: java -Dserver.port=$PORT -jar  target/grandslamsim.jar
